@@ -1,5 +1,6 @@
 package io.github.hyperultraminions;
 
+import io.github.hyperultraminions.cmds.MinionCMD;
 import io.github.hyperultraminions.managers.MinionManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,6 +16,11 @@ public class Main extends JavaPlugin {
 
         // Initialize Managers
         this.minionManager = new MinionManager(this);
+
+        // Register Commands
+        if (getCommand("minion") != null) {
+            getCommand("minion").setExecutor(new MinionCMD(this));
+        }
 
         // Start Minion Ticking Thread (runs every 3 seconds)
         getServer().getScheduler().runTaskTimer(this, () -> {
